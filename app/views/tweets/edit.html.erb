@@ -1,0 +1,28 @@
+<%= form_for @tweet do |f| %>
+  <%= f.label :music_name %>
+  <%= f.label :music_artist %>
+  <%= f.label :music_year %>
+  <%= f.label :music_genre %>
+  <%= f.label :favorite_point %>
+  <%= f.label :review %>
+  <%= f.label :favorite_phrase %>
+  <%= f.label :favorite_time %>
+  <%= f.label :mv_url %>
+  <%= f.label :created_at %>
+  <%= f.label :updated_at %>
+
+
+  <%= f.text_field :music_name, :size => 140 %> 
+  <%= f.text_field :music_artist, :size => 140 %> 
+  <%= f.text_field :music_year, :size => 140 %> 
+  <%= f.text_field :music_genre, :size => 140 %> 
+  <%= f.text_field :favorite_point, :size => 140 %> 
+  <%= f.text_field :review, :size => 140 %> 
+  <%= f.text_field :favorite_phrase, :size => 140 %> 
+  <%= f.text_field :favorite_time, :size => 140 %> 
+  <%= f.text_field :mv_url, :size => 140 %> 
+  <%= f.text_field :created_at, :size => 140 %> 
+  <%= f.text_field :updated_at, :size => 140 %> 
+
+  <%= f.submit "編集する" %>
+<% end %>

@@ -1,0 +1,145 @@
+<div class="tweets-show-page">
+  <div class="page-inner">
+
+    <header class="page-head">
+      <%= link_to "← 楽曲一覧に戻る", tweets_path, class: "back-link" %>
+      <h1 class="page-title">いろいろな音楽を聴こう！</h1>
+    </header>
+
+    <div class="page-columns">
+
+      <div class="col-main">
+        <div class="tweet">
+
+          <div class="tweet-top">
+            <div class="tweet-video">
+              <iframe src="https://www.youtube.com/embed/<%= find_youtube_url(@tweet.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <div class="tweet-head">
+              <div class="song-title-row">
+                <p class="song-name"><%= @tweet.music_name %></p>
+
+                <span class="tweet-like">
+                <% if user_signed_in? %>
+                  <% if current_user.already_liked?(@tweet) %>
+                    <%= link_to tweet_like_path(id: @tweet.id, tweet_id: @tweet.id), data: { turbo_method: :delete }, class: "like-btn is-liked" do %>
+                      <i class="fas fa-heart"></i><%= @tweet.likes.count %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to tweet_likes_path(id: @tweet.id, tweet_id: @tweet.id), data: { turbo_method: :post }, class: "like-btn" do %>
+                      <i class="far fa-heart"></i><%= @tweet.likes.count %>
+                    <% end %>
+                  <% end %>
+                <% else %>
+                  <span class="like-btn is-static"><i class="far fa-heart"></i><%= @tweet.likes.count %></span>
+                <% end %>
+                </span>
+              </div>
+
+              <p class="song-artist"><%= @tweet.music_artist %></p>
+
+              <p class="song-meta">
+                <span class="song-genre"><%= @tweet.music_genre %></span>
+                <span class="song-year"><%= @tweet.music_year %></span>
+              </p>
+
+              <div class="tweet-actions">
+                <% if user_signed_in? %>
+                  <%= link_to "編集する", edit_tweet_path(@tweet.id), class: "btn-sm" %>
+                <% end %>
+                <%= link_to "一覧に戻る", tweets_path, class: "btn-sm" %>
+              </div>
+            </div>
+          </div>
+
+          <div class="tweet-body">
+            <dl class="song-detail">
+              <div class="detail-row">
+                <dt class="detail-label">好きなポイント</dt>
+                <dd class="detail-value"><%= @tweet.favorite_point %></dd>
+              </div>
+
+              <div class="detail-row">
+                <dt class="detail-label">レビュー</dt>
+                <dd class="detail-value detail-body"><%= @tweet.review %></dd>
+              </div>
+
+              <div class="detail-row">
+                <dt class="detail-label">好きなフレーズ</dt>
+                <dd class="detail-value detail-quote"><%= @tweet.favorite_phrase %></dd>
+              </div>
+
+              <div class="detail-row">
+                <dt class="detail-label">好きな時間</dt>
+                <dd class="detail-value"><%= @tweet.favorite_time %></dd>
+              </div>
+
+              <div class="detail-row">
+                <dt class="detail-label">音源 URL</dt>
+                <dd class="detail-value detail-url"><%= Rinku.auto_link(@tweet.music_url, :all, 'target="_blank" rel="noopener"').html_safe %></dd>
+              </div>
+            </dl>
+
+            <% # mv_url は YouTube 埋め込みで表示しているため非表示 %>
+
+            <p class="tweet-timestamp">
+              <span>投稿 <%= @tweet.created_at %></span>
+              <span>更新 <%= @tweet.updated_at %></span>
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-side">
+
+        <section class="panel panel-liked">
+          <h2 class="section-title">いいねしたユーザー</h2>
+
+          <% if @tweet.liked_users.present? %>
+            <ul class="user-list">
+              <% @tweet.liked_users.each do |user| %>
+                <li class="user-chip"><%= user.email %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="empty">まだいいねされていません。</p>
+          <% end %>
+        </section>
+
+        <section class="panel comment-wrapper">
+          <h2 class="section-title">コメント一覧</h2>
+
+          <% if @comments.present? %>
+            <ul class="comment-list">
+              <% @comments.each do |c| %>
+                <li class="comment">
+                  <p class="comment-user"><%= c.user.email unless c.user.blank? %></p>
+                  <p class="comment-content"><%= c.content %></p>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="empty">まだコメントがありません。</p>
+          <% end %>
+
+          <% if user_signed_in? %>
+            <div class="comment-form">
+              <%= form_with(model: [@tweet, @comment], local: true) do |f| %>
+                <%= f.text_area :content, class: "form-textarea", rows: 3, placeholder: "この曲について書いてみましょう" %>
+                <%= button_tag type: "submit", class: "btn btn-primary" do %>
+                  <i class="far fa-comments"></i> コメントする
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <p class="comment-guide">コメントするにはログインしてください。</p>
+          <% end %>
+        </section>
+
+      </div>
+
+    </div>
+  </div>
+</div>

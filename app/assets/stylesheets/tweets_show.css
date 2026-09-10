@@ -1,0 +1,637 @@
+/* =========================================================
+   楽曲詳細ページ（tweets/show）専用スタイル
+   配色：ウォームグレー（背景）＋コーラル（アクセント）の2色構成
+   レイアウト：左に曲情報、右にいいね・コメントの2カラム
+   セレクタは原則 .tweets-show-page から開始し、他ページに影響させない
+   ========================================================= */
+
+.tweets-show-page {
+  --bg: #f7f3f1;
+  --surface: #ffffff;
+  --border: #e3dcd8;
+  --border-strong: #c9bfb9;
+  --text: #231e1c;
+  --text-sub: #7c736f;
+  --text-faint: #a89f9a;
+  --accent: #ff6b4a;
+  --accent-strong: #e2502f;
+  --accent-dark: #c6432a;
+  --accent-soft: #ffe7e0;
+  --accent-text: #a8371f;
+
+  /* 動画の横幅。小さくしたいときはここを変える */
+  --video-w: clamp(180px, 40%, 260px);
+
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 22px 20px 40px;
+  background-color: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tweets-show-page *,
+.tweets-show-page *::before,
+.tweets-show-page *::after {
+  box-sizing: border-box;
+}
+
+.tweets-show-page .page-inner {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------
+   ページ見出し
+   --------------------------------------------------------- */
+
+.tweets-show-page .page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.tweets-show-page .back-link {
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.tweets-show-page .back-link:hover {
+  color: var(--accent-dark);
+}
+
+.tweets-show-page .page-title {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(16px, 2.4vw, 20px);
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   2カラム
+   --------------------------------------------------------- */
+
+.tweets-show-page .page-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  width: 100%;
+}
+
+.tweets-show-page .col-main,
+.tweets-show-page .col-side {
+  min-width: 0;
+}
+
+.tweets-show-page .col-side {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---------------------------------------------------------
+   楽曲カード（左）
+   --------------------------------------------------------- */
+
+.tweets-show-page .tweet {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 14px;
+  background-color: var(--surface);
+  overflow: hidden;
+}
+
+/* 動画を左、曲名などを右に置く横並び */
+.tweets-show-page .tweet-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.tweets-show-page .tweet-video {
+  position: relative;
+  flex: 0 0 auto;
+  width: var(--video-w);
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  background-color: #efe9e6;
+  overflow: hidden;
+}
+
+.tweets-show-page .tweet-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.tweets-show-page .tweet-head {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* 曲名といいねボタンを横並びにする */
+.tweets-show-page .song-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 2px;
+}
+
+.tweets-show-page .song-name {
+  margin: 0;
+  min-width: 0;
+  color: var(--text);
+  font-size: clamp(17px, 2.6vw, 21px);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+.tweets-show-page .tweet-like {
+  flex-shrink: 0;
+}
+
+.tweets-show-page .song-artist {
+  margin: 0 0 8px;
+  color: var(--text-sub);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.tweets-show-page .song-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.tweets-show-page .song-genre {
+  max-width: 100%;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background-color: var(--accent-soft);
+  color: var(--accent-text);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.tweets-show-page .song-year {
+  color: var(--text-sub);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.tweets-show-page .tweet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+
+/* ---------------------------------------------------------
+   詳細項目（ラベルを左、値を右に置いて縦を詰める）
+   --------------------------------------------------------- */
+
+.tweets-show-page .tweet-body {
+  padding: 14px 18px 12px;
+}
+
+.tweets-show-page .song-detail {
+  margin: 0;
+  padding: 0;
+}
+
+.tweets-show-page .detail-row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tweets-show-page .detail-row:first-child {
+  padding-top: 0;
+}
+
+.tweets-show-page .detail-row:last-child {
+  border-bottom: 0;
+}
+
+.tweets-show-page .detail-label {
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.9;
+  letter-spacing: 0.04em;
+}
+
+.tweets-show-page .detail-value {
+  margin: 0;
+  min-width: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.tweets-show-page .detail-value:empty::before {
+  content: "—";
+  color: var(--text-sub);
+}
+
+.tweets-show-page .detail-body {
+  white-space: pre-wrap;
+}
+
+.tweets-show-page .detail-quote {
+  padding-left: 11px;
+  border-left: 2px solid var(--accent);
+  color: var(--text-sub);
+}
+
+/* 音源URLはリンクとして押せるようにする */
+.tweets-show-page .detail-url {
+  font-size: 12.5px;
+}
+
+.tweets-show-page .detail-url a {
+  color: var(--accent-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  overflow-wrap: anywhere;
+  transition: color 0.18s ease;
+}
+
+.tweets-show-page .detail-url a:hover {
+  color: var(--accent-strong);
+}
+
+.tweets-show-page .detail-url a:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+/* 投稿日時は薄く小さく */
+.tweets-show-page .tweet-timestamp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  color: var(--text-faint);
+  font-size: 10px;
+  line-height: 1.6;
+}
+
+/* ---------------------------------------------------------
+   右カラムのパネル
+   --------------------------------------------------------- */
+
+.tweets-show-page .panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 16px 16px 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background-color: var(--surface);
+}
+
+.tweets-show-page .section-title {
+  margin: 0 0 12px;
+  padding-left: 10px;
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------
+   いいねしたユーザー
+   --------------------------------------------------------- */
+
+.tweets-show-page .user-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  max-height: 96px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.tweets-show-page .user-chip {
+  max-width: 100%;
+  padding: 4px 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-sub);
+  font-size: 11px;
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   コメント（多いときだけスクロールする）
+   --------------------------------------------------------- */
+
+.tweets-show-page .comment-list {
+  margin: 0 0 14px;
+  padding: 0 2px 0 0;
+  max-height: 232px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.tweets-show-page .comment {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.tweets-show-page .comment:first-child {
+  padding-top: 0;
+}
+
+.tweets-show-page .comment:last-child {
+  border-bottom: 0;
+}
+
+.tweets-show-page .comment-user {
+  margin: 0 0 2px;
+  color: var(--text-sub);
+  font-size: 10px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.tweets-show-page .comment-content {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   コメント投稿フォーム
+   --------------------------------------------------------- */
+
+.tweets-show-page .comment-form {
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.tweets-show-page .form-textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.7;
+  resize: vertical;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.tweets-show-page .form-textarea::placeholder {
+  color: var(--text-sub);
+}
+
+.tweets-show-page .form-textarea:focus {
+  outline: none;
+  border-color: var(--accent-strong);
+  background-color: var(--surface);
+}
+
+.tweets-show-page .comment-guide {
+  margin: 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  color: var(--text-sub);
+  font-size: 12px;
+}
+
+/* ---------------------------------------------------------
+   ボタン
+   --------------------------------------------------------- */
+
+.tweets-show-page .btn {
+  display: inline-block;
+  max-width: 100%;
+  padding: 10px 22px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.tweets-show-page .btn-primary {
+  background-color: var(--accent-strong);
+  color: #ffffff;
+}
+
+.tweets-show-page .btn-primary:hover {
+  background-color: var(--accent-dark);
+}
+
+.tweets-show-page .btn-sm {
+  display: inline-block;
+  max-width: 100%;
+  padding: 6px 15px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background-color: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.tweets-show-page .btn-sm:hover {
+  border-color: var(--accent-strong);
+  color: var(--accent-dark);
+}
+
+.tweets-show-page .btn:focus-visible,
+.tweets-show-page .btn-sm:focus-visible,
+.tweets-show-page .like-btn:focus-visible,
+.tweets-show-page .back-link:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------
+   いいねボタン
+   --------------------------------------------------------- */
+
+.tweets-show-page .like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background-color: var(--surface);
+  color: var(--text-sub);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.18s ease, color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.tweets-show-page .like-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent-dark);
+}
+
+.tweets-show-page .like-btn.is-liked {
+  border-color: var(--accent);
+  background-color: var(--accent-soft);
+  color: var(--accent-text);
+}
+
+.tweets-show-page .like-btn.is-static {
+  border-style: dashed;
+  cursor: default;
+}
+
+/* ---------------------------------------------------------
+   0件のとき
+   --------------------------------------------------------- */
+
+.tweets-show-page .empty {
+  margin: 0;
+  padding: 20px 16px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+  color: var(--text-sub);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------
+   レスポンシブ
+   --------------------------------------------------------- */
+
+/* タブレット：カラム比率を近づける */
+@media screen and (max-width: 1000px) {
+  .tweets-show-page {
+    --video-w: clamp(160px, 38%, 210px);
+  }
+
+  .tweets-show-page .page-columns {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .tweets-show-page .detail-row {
+    grid-template-columns: 84px minmax(0, 1fr);
+    gap: 10px;
+  }
+}
+
+/* スマートフォン：1カラムに畳む */
+@media screen and (max-width: 760px) {
+  .tweets-show-page {
+    padding: 18px 14px 48px;
+  }
+
+  .tweets-show-page .page-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .tweets-show-page .tweet-top {
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  /* 縦積みのときは動画を横幅いっぱいに */
+  .tweets-show-page .tweet-video {
+    width: 100%;
+  }
+
+  .tweets-show-page .tweet-body {
+    padding: 12px 14px 10px;
+  }
+
+  .tweets-show-page .detail-row {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .tweets-show-page .detail-label {
+    line-height: 1.6;
+  }
+
+  .tweets-show-page .user-list,
+  .tweets-show-page .comment-list {
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .tweets-show-page .btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tweets-show-page .btn,
+  .tweets-show-page .btn-sm,
+  .tweets-show-page .like-btn,
+  .tweets-show-page .back-link,
+  .tweets-show-page .detail-url a,
+  .tweets-show-page .form-textarea {
+    transition: none;
+  }
+}

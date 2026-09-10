@@ -1,0 +1,458 @@
+/* =========================================================
+   トップページ（homes/home）専用スタイル
+   配色：ウォームグレー（背景）＋コーラル（アクセント）の2色構成
+   すべてのセレクタを .home-page から開始し、他ページに影響させない
+   ========================================================= */
+
+.home-page {
+  /* --- 色。ここだけ書き換えれば全体の色味が変わります --- */
+  --hp-bg: #f7f3f1;
+  --hp-surface: #ffffff;
+  --hp-border: #e3dcd8;
+  --hp-border-strong: #c9bfb9;
+  --hp-text: #231e1c;
+  --hp-text-sub: #7c736f;
+  --hp-accent: #ff6b4a;
+  --hp-accent-strong: #e2502f;
+  --hp-accent-dark: #c6432a;
+  --hp-accent-soft: #ffe7e0;
+  --hp-accent-text: #a8371f;
+
+  /* --- サイズ。ボタンの高さはカードの1.5倍 --- */
+  --hp-card-h: 104px;
+  --hp-btn-h: 156px;
+  --hp-gap: 10px;
+
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 20px 72px;
+  background-color: var(--hp-bg);
+  color: var(--hp-text);
+  overflow-x: hidden;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.home-page *,
+.home-page *::before,
+.home-page *::after {
+  box-sizing: border-box;
+}
+
+.home-page .home-inner {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------
+   ヒーロー
+   --------------------------------------------------------- */
+
+.home-page .hero {
+  width: 100%;
+}
+
+.home-page .hero-equalizer {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 26px;
+  margin-bottom: 18px;
+}
+
+.home-page .hero-equalizer span {
+  display: block;
+  width: 4px;
+  border-radius: 2px;
+  background-color: var(--hp-accent);
+  animation: home-page-eq 1.2s ease-in-out infinite alternate;
+}
+
+.home-page .hero-equalizer span:nth-child(1) { height: 11px; animation-delay: 0s; }
+.home-page .hero-equalizer span:nth-child(2) { height: 20px; animation-delay: 0.12s; }
+.home-page .hero-equalizer span:nth-child(3) { height: 15px; animation-delay: 0.24s; background-color: var(--hp-accent-strong); }
+.home-page .hero-equalizer span:nth-child(4) { height: 24px; animation-delay: 0.06s; background-color: var(--hp-accent-strong); }
+.home-page .hero-equalizer span:nth-child(5) { height: 9px;  animation-delay: 0.3s; }
+.home-page .hero-equalizer span:nth-child(6) { height: 18px; animation-delay: 0.18s; }
+
+@keyframes home-page-eq {
+  from { transform: scaleY(0.5); }
+  to   { transform: scaleY(1.4); }
+}
+
+.home-page .hero-brand {
+  margin: 0 0 10px;
+  color: var(--hp-text-sub);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.home-page .hero-title {
+  margin: 0 0 14px;
+  color: var(--hp-text);
+  font-size: clamp(28px, 5.4vw, 46px);
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.home-page .hero-lead {
+  max-width: 40em;
+  margin: 0 0 28px;
+  color: var(--hp-text-sub);
+  font-size: clamp(13px, 2.2vw, 15px);
+}
+
+/* ---------------------------------------------------------
+   大きいボタン（横幅はカード2枚分、高さはカードの1.5倍）
+   --------------------------------------------------------- */
+
+.home-page .hero-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--hp-gap);
+  width: 100%;
+}
+
+.home-page .btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: var(--hp-btn-h);
+  padding: 16px 20px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.home-page .btn-label {
+  font-size: clamp(15px, 2.4vw, 20px);
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.home-page .btn-sub {
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.home-page .btn-primary {
+  background-color: var(--hp-accent-strong);
+  color: #ffffff;
+}
+
+.home-page .btn-primary .btn-sub {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.home-page .btn-primary:hover {
+  background-color: var(--hp-accent-dark);
+  transform: translateY(-2px);
+}
+
+.home-page .btn-outline {
+  border-color: var(--hp-border);
+  background-color: var(--hp-surface);
+  color: var(--hp-text);
+}
+
+.home-page .btn-outline .btn-sub {
+  color: var(--hp-text-sub);
+}
+
+.home-page .btn-outline:hover {
+  border-color: var(--hp-accent);
+  transform: translateY(-2px);
+}
+
+.home-page .btn:focus-visible,
+.home-page .btn-pill:focus-visible,
+.home-page .song-card-link:focus-visible {
+  outline: 2px solid var(--hp-accent-strong);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------
+   セクション見出し
+   --------------------------------------------------------- */
+
+.home-page .section {
+  width: 100%;
+  margin-top: 44px;
+}
+
+.home-page .section-head {
+  margin-bottom: 16px;
+}
+
+.home-page .section-label {
+  margin: 0 0 2px;
+  color: var(--hp-accent-dark);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.home-page .section-title {
+  margin: 0;
+  color: var(--hp-text);
+  font-size: clamp(18px, 3.4vw, 22px);
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------
+   曲カード
+   --------------------------------------------------------- */
+
+.home-page .song-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(var(--hp-card-h), auto);
+  gap: var(--hp-gap);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-page .song-card {
+  position: relative;
+  min-width: 0;
+  border: 1px solid var(--hp-border);
+  border-left: 3px solid var(--hp-accent);
+  border-radius: 14px;
+  background-color: var(--hp-surface);
+  overflow: hidden;
+  transition: border-color 0.18s ease, transform 0.18s ease;
+}
+
+.home-page .song-card:hover {
+  border-color: var(--hp-border-strong);
+  border-left-color: var(--hp-accent-strong);
+  transform: translateY(-2px);
+}
+
+.home-page .song-card-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  height: 100%;
+  padding: 12px 13px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.home-page .song-name {
+  margin: 0;
+  color: var(--hp-text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.home-page .song-card:hover .song-name {
+  color: var(--hp-accent-dark);
+}
+
+.home-page .song-artist {
+  margin: 0 0 8px;
+  color: var(--hp-text-sub);
+  font-size: 11px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.home-page .song-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: auto 0 0;
+}
+
+.home-page .song-genre {
+  max-width: 100%;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background-color: var(--hp-accent-soft);
+  color: var(--hp-accent-text);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.home-page .song-year {
+  color: var(--hp-text-sub);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+
+.home-page .song-user {
+  margin: 2px 0 0;
+  color: var(--hp-text-sub);
+  font-size: 10px;
+  overflow-wrap: anywhere;
+  transition: opacity 0.18s ease;
+}
+
+/* ホバー時に出る「レビューを読む →」。レイアウトを動かさないよう重ねる */
+.home-page .song-more {
+  position: absolute;
+  right: 13px;
+  bottom: 11px;
+  color: var(--hp-accent-dark);
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+}
+
+.home-page .song-card:hover .song-user {
+  opacity: 0;
+}
+
+.home-page .song-card:hover .song-more {
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------
+   すべての曲を見る／空状態
+   --------------------------------------------------------- */
+
+.home-page .section-more {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.home-page .btn-pill {
+  display: inline-block;
+  max-width: 100%;
+  padding: 11px 26px;
+  border: 1px solid var(--hp-border-strong);
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--hp-text);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: border-color 0.18s ease, background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.home-page .btn-pill:hover {
+  border-color: var(--hp-accent-strong);
+  background-color: var(--hp-surface);
+  color: var(--hp-accent-dark);
+}
+
+.home-page .empty {
+  margin: 0;
+  padding: 48px 20px;
+  border: 1px dashed var(--hp-border-strong);
+  border-radius: 14px;
+  background-color: var(--hp-surface);
+  color: var(--hp-text-sub);
+  text-align: center;
+}
+
+/* ---------------------------------------------------------
+   レスポンシブ
+   --------------------------------------------------------- */
+
+/* タブレット：カード3列 */
+@media screen and (max-width: 900px) {
+  .home-page .song-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* 小さめタブレット：カード2列 */
+@media screen and (max-width: 700px) {
+  .home-page {
+    --hp-btn-h: 128px;
+  }
+
+  .home-page .song-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* スマートフォン：曲は4件だけ表示（案C）＋ボタンは縦積み */
+@media screen and (max-width: 600px) {
+  .home-page {
+    --hp-btn-h: 84px;
+    --hp-gap: 9px;
+    padding: 28px 16px 56px;
+  }
+
+  .home-page .hero-title {
+    line-height: 1.35;
+  }
+
+  .home-page .hero-br {
+    display: none;
+  }
+
+  .home-page .hero-actions {
+    grid-template-columns: 1fr;
+  }
+
+  /* 「曲の一覧を見る」を上に */
+  .home-page .btn-primary {
+    order: -1;
+  }
+
+  .home-page .section {
+    margin-top: 36px;
+  }
+
+  /* 5件目以降はスマホでは隠す */
+  .home-page .song-card:nth-child(n + 5) {
+    display: none;
+  }
+
+  /* タップ操作ではホバー表示を使わない */
+  .home-page .song-more {
+    display: none;
+  }
+
+  .home-page .song-card:hover .song-user {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-page .hero-equalizer span {
+    animation: none;
+  }
+
+  .home-page .btn,
+  .home-page .song-card,
+  .home-page .song-user,
+  .home-page .song-more,
+  .home-page .btn-pill {
+    transition: none;
+  }
+
+  .home-page .btn:hover,
+  .home-page .song-card:hover {
+    transform: none;
+  }
+}

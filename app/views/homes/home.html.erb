@@ -1,0 +1,69 @@
+<div class="home-page">
+  <div class="home-inner">
+
+    <div class="hero">
+      <div class="hero-equalizer" aria-hidden="true">
+        <span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+
+      <p class="hero-brand">Music Review</p>
+      <h1 class="hero-title">まだ知らない一曲に、<br class="hero-br">今日出会う。</h1>
+      <p class="hero-lead">誰かが「これを聴いてほしい」と書き残した曲が集まっています。</p>
+
+      <div class="hero-actions">
+      <% if user_signed_in? %>
+        <%= link_to new_tweet_path, class: "btn btn-outline" do %>
+          <span class="btn-label">曲を投稿する</span>
+          <span class="btn-sub">あなたの一曲を、誰かの発見に</span>
+        <% end %>
+      <% else %>
+        <%= link_to new_user_registration_path, class: "btn btn-outline" do %>
+          <span class="btn-label">新規登録して投稿する</span>
+          <span class="btn-sub">あなたの一曲を、誰かの発見に</span>
+        <% end %>
+      <% end %>
+
+        <%= link_to tweets_path, class: "btn btn-primary" do %>
+          <span class="btn-label">曲の一覧を見る</span>
+          <span class="btn-sub">ジャンルを問わず、まとめて眺める</span>
+        <% end %>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="section-label">NEW ARRIVALS</p>
+        <h2 class="section-title">最近登録された曲</h2>
+      </div>
+
+      <% if @new_tweets.present? %>
+        <ul class="song-list">
+          <% @new_tweets.each do |tweet| %>
+            <li class="song-card">
+              <%= link_to tweet_path(tweet), class: "song-card-link" do %>
+                <p class="song-name"><%= tweet.music_name %></p>
+                <p class="song-artist"><%= tweet.music_artist %></p>
+
+                <p class="song-meta">
+                  <span class="song-genre"><%= tweet.music_genre %></span>
+                  <span class="song-year"><%= tweet.music_year %></span>
+                </p>
+
+                <p class="song-user">by <%= tweet.user.name %></p>
+                <span class="song-more" aria-hidden="true">レビューを読む →</span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+
+        <div class="section-more">
+          <%= link_to "すべての曲を見る", tweets_path, class: "btn-pill" %>
+        </div>
+      <% else %>
+        <p class="empty">まだ投稿がありません。</p>
+      <% end %>
+    </section>
+
+  </div>
+</div>

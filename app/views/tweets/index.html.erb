@@ -1,0 +1,181 @@
+<div class="tweets-index-page">
+  <div class="page-inner">
+
+    <header class="page-head">
+      <h1 class="page-title">楽曲紹介サイト</h1>
+      <h3 class="page-subtitle">一覧ページ</h3>
+
+      <nav class="page-nav" aria-label="セクションへ移動">
+        <%= link_to "#all-songs", class: "nav-btn", data: { turbo: false } do %>
+          <span class="nav-btn-label">すべての曲</span>
+          <span class="nav-btn-arrow" aria-hidden="true">↓</span>
+        <% end %>
+        <%= link_to "#most-liked", class: "nav-btn", data: { turbo: false } do %>
+          <span class="nav-btn-label">いいねの多い曲</span>
+          <span class="nav-btn-arrow" aria-hidden="true">↓</span>
+        <% end %>
+      </nav>
+
+      <div class="page-actions">
+        <%= link_to "新規投稿へ", new_tweet_path, class: "btn btn-primary" %>
+        <% if user_signed_in? %>
+          <%= link_to "マイページへ", user_path(current_user.id), class: "btn btn-outline" %>
+        <% end %>
+      </div>
+    </header>
+
+    <div class="tweets-container">
+
+      <section class="tweet-section" id="all-songs">
+        <p class="section-label">ALL SONGS</p>
+        <h2 class="section-title">すべての曲</h2>
+
+        <% if @tweets.present? %>
+          <div class="tweet-grid">
+            <% @tweets.each do |t| %>
+              <div class="tweet">
+
+                <div class="tweet-video">
+                  <iframe src="https://www.youtube.com/embed/<%= find_youtube_url(t.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+
+                <div class="tweet-body">
+                  <p class="song-name"><%= t.music_name %></p>
+                  <p class="song-artist"><%= t.music_artist %></p>
+
+                  <p class="song-meta">
+                    <span class="song-genre"><%= t.music_genre %></span>
+                    <span class="song-year"><%= t.music_year %></span>
+                  </p>
+
+                  <p class="song-point">
+                    <span class="point-label">POINT</span>
+                    <span class="point-text"><%= t.favorite_point %></span>
+                  </p>
+
+                  <p class="song-phrase"><%= t.favorite_phrase %></p>
+
+                  <% # review %>
+                  <% # favorite_time %>
+                  <% # mv_url %>
+                  <% # music_url %>
+
+                  <div class="tweet-foot">
+                    <%= link_to t.user.name, user_path(t.user.id), class: "user-name" %>
+
+                    <span class="tweet-like">
+                    <% if user_signed_in? %>
+                      <% if current_user.already_liked?(t) %>
+                        <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), data: { turbo_method: :delete }, class: "like-btn is-liked" do %>
+                          <i class="fas fa-heart"></i><%= t.likes.count %>
+                        <% end %>
+                      <% else %>
+                        <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), data: { turbo_method: :post }, class: "like-btn" do %>
+                          <i class="far fa-heart"></i><%= t.likes.count %>
+                        <% end %>
+                      <% end %>
+                    <% else %>
+                      <span class="like-btn is-static"><i class="far fa-heart"></i><%= t.likes.count %></span>
+                    <% end %>
+                    </span>
+                  </div>
+
+                  <div class="tweet-links">
+                    <%= link_to "詳細へ", tweet_path(t.id), class: "btn-sm btn-sm-main" %>
+                    <% if user_signed_in? %>
+                      <%= link_to "編集する", edit_tweet_path(t.id), class: "btn-sm" %>
+                      <%= button_to "削除する", tweet_path(t.id), method: :delete, class: "btn-sm btn-sm-quiet", form_class: "btn-sm-form" %>
+                    <% end %>
+                  </div>
+                </div>
+
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="empty">まだ投稿がありません。</p>
+        <% end %>
+
+        <p class="section-jump">
+          <%= link_to "いいねの多い曲へ ↓", "#most-liked", class: "jump-link", data: { turbo: false } %>
+        </p>
+      </section>
+
+      <section class="tweet-section" id="most-liked">
+        <p class="section-label">MOST LIKED</p>
+        <h2 class="section-title">いいねの多い曲</h2>
+
+        <% if @rank_tweets.present? %>
+          <div class="tweet-grid">
+            <% @rank_tweets.each do |t| %>
+              <div class="tweet tweet-rank">
+
+                <div class="tweet-video">
+                  <iframe src="https://www.youtube.com/embed/<%= find_youtube_url(t.youtube_url) %>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+
+                <div class="tweet-body">
+                  <p class="song-name"><%= t.music_name %></p>
+                  <p class="song-artist"><%= t.music_artist %></p>
+
+                  <p class="song-meta">
+                    <span class="song-genre"><%= t.music_genre %></span>
+                    <span class="song-year"><%= t.music_year %></span>
+                  </p>
+
+                  <p class="song-point">
+                    <span class="point-label">POINT</span>
+                    <span class="point-text"><%= t.favorite_point %></span>
+                  </p>
+
+                  <p class="song-phrase"><%= t.favorite_phrase %></p>
+
+                  <% # review %>
+                  <% # favorite_time %>
+                  <% # mv_url %>
+                  <% # music_url %>
+
+                  <div class="tweet-foot">
+                    <%= link_to t.user.name, user_path(t.user.id), class: "user-name" %>
+
+                    <span class="tweet-like">
+                    <% if user_signed_in? %>
+                      <% if current_user.already_liked?(t) %>
+                        <%= link_to tweet_like_path(id: t.id, tweet_id: t.id), data: { turbo_method: :delete }, class: "like-btn is-liked" do %>
+                          <i class="fas fa-heart"></i><%= t.likes.count %>
+                        <% end %>
+                      <% else %>
+                        <%= link_to tweet_likes_path(id: t.id, tweet_id: t.id), data: { turbo_method: :post }, class: "like-btn" do %>
+                          <i class="far fa-heart"></i><%= t.likes.count %>
+                        <% end %>
+                      <% end %>
+                    <% else %>
+                      <span class="like-btn is-static"><i class="far fa-heart"></i><%= t.likes.count %></span>
+                    <% end %>
+                    </span>
+                  </div>
+
+                  <div class="tweet-links">
+                    <%= link_to "詳細へ", tweet_path(t.id), class: "btn-sm btn-sm-main" %>
+                    <% if user_signed_in? %>
+                      <%= link_to "編集する", edit_tweet_path(t.id), class: "btn-sm" %>
+                      <%= button_to "削除する", tweet_path(t.id), method: :delete, class: "btn-sm btn-sm-quiet", form_class: "btn-sm-form" %>
+                    <% end %>
+                  </div>
+                </div>
+
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p class="empty">まだいいねされた曲がありません。</p>
+        <% end %>
+
+        <p class="section-jump">
+          <%= link_to "すべての曲へ ↑", "#all-songs", class: "jump-link", data: { turbo: false } %>
+        </p>
+      </section>
+
+    </div>
+  </div>
+</div>

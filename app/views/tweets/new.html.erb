@@ -1,0 +1,80 @@
+<h1>(自分の題名)</h1>
+<h3>新規投稿ページ</h3>
+<%= form_for @tweet do |f| %>
+
+    <div class="field">
+        <%= f.label :曲のタイトル %>
+        <%= f.text_field :music_name, :size => 30 %>
+    </div>
+
+    <div class="field">
+        <%= f.label :アーティストの名前 %>
+        <%= f.text_field :music_artist, :size => 30 %>
+    </div>
+
+    <div class="field">
+    <%= f.label :発売年  %>
+    <%= f.number_field :music_year, :size => 10 %>
+    </div>
+
+    # 左　画面表示
+    # 右　テーブルに保存される形式、一緒にする
+    <div class="field">
+        <%= f.label :アーティストのジャンル  %>
+        <%= f.select :music_genre, 
+        [
+        ["J-pop", "J-pop"], 
+        ["邦ロック", "邦ロック"],
+        ["邦楽ヒップホップ/R&B/レゲエ", "邦楽ヒップホップ/R&B/レゲエ"],
+        ["アニメ", "アニメ"],
+        ["ボカロ", "ボカロ"], 
+        ["K-pop", "K-pop"], 
+        ["洋楽", "洋楽"],
+        ["その他","その他"]
+        ], include_blank: "一番近いジャンルを選択して下さい" %>
+    </div>
+
+    <div class="field">
+    <%= f.label :おすすめ度 %>
+    <%= f.number_field :favorite_point, min: 1, max: 5, step: 0.1 %>
+    </div>
+
+    <div class="field">
+        <%= f.label :"おすすめポイント(感想・曲全体)"  %>
+        <%= f.text_area :review, :size => "30x2" %>
+    </div>
+
+    <div class="field">
+        <%= f.label :おすすめフレーズ  %>
+        <%= f.text_area :favorite_phrase, :size => "30x2" %>
+    </div>
+
+    <div class="field">
+        <%= f.label :タイムスタンプ %>
+        <%= f.text_field :favorite_time, :size => 30 %>
+    </div>
+
+    <div class="field">
+        <%= f.label :MVのURL %>
+        <%= f.text_field :mv_url, :size => 30 %>
+    </div>
+<   div class="field">
+        <%= f.label :youtubeのurl %>
+        <%= f.text_field :youtube_url, :size => 30 %>
+    </div>
+
+    <div class="field">
+        <%= f.label :AppleMusicの埋め込みリンク %>
+        <%= f.text_field :music_url, :size => 30 %>
+    </div>
+
+    <div class="field">
+        <%= f.label :apple, "AppleMusic埋め込みリンク(新)" %>
+        <%= f.text_field :apple, :size => 30 %>
+    </div>
+
+
+  <%= f.submit "投稿する" %>
+<% end %>
+
+<%= link_to "一覧に戻る", tweets_path %>
