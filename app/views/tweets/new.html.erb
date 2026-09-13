@@ -3,8 +3,9 @@
 
     <header class="page-head">
       <%= link_to "← 一覧に戻る", tweets_path, class: "back-link" %>
-      <h1 class="page-title">(自分の題名)</h1>
-      <h3 class="page-subtitle">新規投稿ページ</h3>
+      <p class="page-label">NEW POST</p>
+      <h1 class="page-title">あなたの「これを聴いてほしい」を<br class="title-br">教えてください。</h1>
+      <p class="page-lead">まだその曲を知らない誰かが、ここから出会います。うまく書こうとしなくて大丈夫です。</p>
     </header>
 
     <%= form_for @tweet, html: { class: "tweet-form" } do |f| %>
@@ -25,23 +26,23 @@
 
         <div class="field-grid">
           <div class="field">
-            <%= f.label :曲のタイトル, class: "field-label" %>
-            <%= f.text_field :music_name, :size => 30, class: "field-input" %>
+            <%= f.label :music_name, "曲のタイトル", class: "field-label" %>
+            <%= f.text_field :music_name, class: "field-input", placeholder: "空も飛べるはず" %>
           </div>
 
           <div class="field">
-            <%= f.label :アーティストの名前, class: "field-label" %>
-            <%= f.text_field :music_artist, :size => 30, class: "field-input" %>
+            <%= f.label :music_artist, "アーティストの名前", class: "field-label" %>
+            <%= f.text_field :music_artist, class: "field-input", placeholder: "スピッツ" %>
           </div>
 
           <div class="field">
-            <%= f.label :発売年, class: "field-label" %>
-            <%= f.number_field :music_year, :size => 10, class: "field-input" %>
+            <%= f.label :music_year, "発売年", class: "field-label" %>
+            <%= f.number_field :music_year, class: "field-input", placeholder: "1996" %>
           </div>
 
           <%# 左：画面表示　右：テーブルに保存される形式。一緒にする %>
           <div class="field">
-            <%= f.label :アーティストのジャンル, class: "field-label" %>
+            <%= f.label :music_genre, "アーティストのジャンル", class: "field-label" %>
             <%= f.select :music_genre,
             [
             ["J-pop", "J-pop"],
@@ -61,25 +62,25 @@
         <h2 class="section-title">おすすめポイント</h2>
 
         <div class="field field-narrow">
-          <%= f.label :おすすめ度, class: "field-label" %>
-          <%= f.number_field :favorite_point, min: 1, max: 5, step: 0.1, class: "field-input" %>
+          <%= f.label :favorite_point, "おすすめ度", class: "field-label" %>
+          <%= f.number_field :favorite_point, min: 1, max: 5, step: 0.1, class: "field-input", placeholder: "4.5" %>
           <p class="field-hint">1.0 〜 5.0 の範囲で入力してください</p>
         </div>
 
         <div class="field">
-          <%= f.label :"おすすめポイント(感想・曲全体)", class: "field-label" %>
-          <%= f.text_area :review, :size => "30x2", class: "field-textarea", rows: 4 %>
+          <%= f.label :review, "おすすめポイント(感想・曲全体)", class: "field-label" %>
+          <%= f.text_area :review, class: "field-textarea", rows: 4, placeholder: "イントロのギターが鳴った瞬間、季節が変わる感じがします。何度も聴いているのに、サビで毎回ハッとする曲です。" %>
         </div>
 
         <div class="field">
-          <%= f.label :おすすめフレーズ, class: "field-label" %>
-          <%= f.text_area :favorite_phrase, :size => "30x2", class: "field-textarea", rows: 3 %>
+          <%= f.label :favorite_phrase, "おすすめフレーズ", class: "field-label" %>
+          <%= f.text_area :favorite_phrase, class: "field-textarea", rows: 3, placeholder: "特に好きな歌詞のフレーズを書いてください" %>
         </div>
 
         <div class="field field-narrow">
-          <%= f.label :タイムスタンプ, class: "field-label" %>
-          <%= f.text_field :favorite_time, :size => 30, class: "field-input" %>
-          <p class="field-hint">例：1:24 のように、特に好きな箇所の時間</p>
+          <%= f.label :favorite_time, "タイムスタンプ", class: "field-label" %>
+          <%= f.text_field :favorite_time, class: "field-input", placeholder: "1:24" %>
+          <p class="field-hint">特に好きな箇所の時間を入力してください</p>
         </div>
       </section>
 
@@ -87,25 +88,18 @@
         <h2 class="section-title">リンク</h2>
 
         <div class="field">
-          <%= f.label :youtubeのurl, class: "field-label" %>
-          <%= f.text_field :youtube_url, :size => 30, class: "field-input" %>
+          <%= f.label :youtube_url, "YouTube の MV リンク", class: "field-label" %>
+          <%= f.text_field :youtube_url, class: "field-input", placeholder: "https://www.youtube.com/watch?v=xxxxxxxxxxx" %>
           <p class="field-hint">詳細ページでプレイヤーとして埋め込まれます</p>
         </div>
 
         <div class="field">
-          <%= f.label :MVのURL, class: "field-label" %>
-          <%= f.text_field :mv_url, :size => 30, class: "field-input" %>
+          <%= f.label :music_url, "音楽アプリのリンク", class: "field-label" %>
+          <%= f.text_field :music_url, class: "field-input", placeholder: "https://music.apple.com/jp/album/..." %>
+          <p class="field-hint">Apple Music や Spotify など、聴けるページのURL</p>
         </div>
 
-        <div class="field">
-          <%= f.label :AppleMusicの埋め込みリンク, class: "field-label" %>
-          <%= f.text_field :music_url, :size => 30, class: "field-input" %>
-        </div>
-
-        <div class="field">
-          <%= f.label :apple, "AppleMusic埋め込みリンク(新)", class: "field-label" %>
-          <%= f.text_field :apple, :size => 30, class: "field-input" %>
-        </div>
+        <%# mv_url と apple は使用しないため非表示 %>
       </section>
 
       <div class="form-actions">

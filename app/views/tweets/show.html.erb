@@ -3,7 +3,7 @@
 
     <header class="page-head">
       <%= link_to "← 楽曲一覧に戻る", tweets_path, class: "back-link" %>
-      <h1 class="page-title">いろいろな音楽を聴こう！</h1>
+      <h1 class="page-title">楽曲詳細</h1>
     </header>
 
     <div class="page-columns">
@@ -75,10 +75,17 @@
                 <dd class="detail-value"><%= @tweet.favorite_time %></dd>
               </div>
 
-              <div class="detail-row">
-                <dt class="detail-label">音源 URL</dt>
-                <dd class="detail-value detail-url"><%= Rinku.auto_link(@tweet.music_url, :all, 'target="_blank" rel="noopener"').html_safe %></dd>
-              </div>
+              <% if @tweet.music_url.present? %>
+                <div class="detail-row">
+                  <dt class="detail-label">聴けるリンク</dt>
+                  <dd class="detail-value">
+                    <a href="<%= @tweet.music_url %>" target="_blank" rel="noopener" class="listen-link">
+                      <i class="fas fa-headphones"></i>
+                      「<%= @tweet.music_name %>」を聴きに行く
+                    </a>
+                  </dd>
+                </div>
+              <% end %>
             </dl>
 
             <% # mv_url は YouTube 埋め込みで表示しているため非表示 %>

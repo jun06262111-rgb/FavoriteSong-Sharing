@@ -22,24 +22,36 @@
   <body>
     <header class="site-header">
       <div class="site-header-inner">
-        <h1 class="site-logo">
-          <%= link_to root_path, class: "site-logo-link" do %>
-            <span class="site-logo-mark" aria-hidden="true"></span>
-            <span class="site-logo-text">楽曲紹介サイト</span>
-          <% end %>
-        </h1>
+        <div class="site-brand">
+          <h1 class="site-logo">
+            <%= link_to root_path, class: "site-logo-link" do %>
+              <span class="site-logo-mark" aria-hidden="true"></span>
+              <span class="site-logo-text">楽曲紹介サイト</span>
+            <% end %>
+          </h1>
+          <p class="site-tagline">〜まだ知らない一曲に、今日出会う。〜</p>
+        </div>
 
         <div class="header-list">
           <ul class="header-nav">
-            <li><%= link_to "曲の一覧", tweets_path, class: "nav-link" %></li>
-            <% if user_signed_in? %>
-              <li><%= link_to "曲を投稿する", new_tweet_path, class: "nav-link nav-link-accent" %></li>
-              <li><%= link_to "マイページ", user_path(current_user), class: "nav-link" %></li>
-              <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link nav-button", form_class: "nav-form" %></li>
-            <% else %>
-              <li><%= link_to "ログイン", new_user_session_path, class: "nav-link" %></li>
-              <li><%= link_to "新規登録", new_user_registration_path, class: "nav-link nav-link-accent" %></li>
-            <% end %>
+            <li class="nav-group">
+              <%= link_to "曲の一覧", tweets_path, class: "nav-link #{'is-current' if controller_name == 'tweets' && action_name == 'index'}" %>
+              <% if user_signed_in? %>
+                <%= link_to "曲を投稿する", new_tweet_path, class: "nav-link nav-link-accent #{'is-current' if controller_name == 'tweets' && action_name == 'new'}" %>
+              <% end %>
+            </li>
+
+            <li class="nav-divider" aria-hidden="true"></li>
+
+            <li class="nav-group nav-group-account">
+              <% if user_signed_in? %>
+                <%= link_to "マイページ", user_path(current_user), class: "nav-link nav-link-quiet #{'is-current' if controller_name == 'users' && action_name == 'show'}" %>
+                <%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link nav-link-quiet nav-button", form_class: "nav-form" %>
+              <% else %>
+                <%= link_to "ログイン", new_user_session_path, class: "nav-link nav-link-quiet #{'is-current' if controller_name == 'sessions'}" %>
+                <%= link_to "新規登録", new_user_registration_path, class: "nav-link nav-link-accent #{'is-current' if controller_name == 'registrations' && action_name == 'new'}" %>
+              <% end %>
+            </li>
           </ul>
         </div>
       </div>
