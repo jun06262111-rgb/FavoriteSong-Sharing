@@ -240,10 +240,12 @@
   background-color: var(--surface);
 }
 
-.tweets-form-page .field-input:hover,
-.tweets-form-page .field-select:hover,
-.tweets-form-page .field-textarea:hover {
-  border-color: var(--border-strong);
+/* 送信を試みた後、未入力のままの欄を目立たせる */
+.tweets-form-page .field-input:user-invalid,
+.tweets-form-page .field-select:user-invalid,
+.tweets-form-page .field-textarea:user-invalid {
+  border-color: var(--accent-strong);
+  background-color: var(--accent-soft);
 }
 
 .tweets-form-page .field-textarea {
