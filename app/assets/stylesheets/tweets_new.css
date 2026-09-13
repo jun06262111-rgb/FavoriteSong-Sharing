@@ -1,0 +1,349 @@
+/* =========================================================
+   楽曲投稿フォーム（tweets/new・edit 共用）
+   配色：ウォームグレー（背景）＋コーラル（アクセント）の2色構成
+   セレクタは原則 .tweets-form-page から開始し、他ページに影響させない
+   ========================================================= */
+
+.tweets-form-page {
+  --bg: #f7f3f1;
+  --surface: #ffffff;
+  --border: #e3dcd8;
+  --border-strong: #c9bfb9;
+  --text: #231e1c;
+  --text-sub: #7c736f;
+  --text-faint: #a89f9a;
+  --accent: #ff6b4a;
+  --accent-strong: #e2502f;
+  --accent-dark: #c6432a;
+  --accent-soft: #ffe7e0;
+  --accent-text: #a8371f;
+
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 28px 20px 72px;
+  background-color: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tweets-form-page *,
+.tweets-form-page *::before,
+.tweets-form-page *::after {
+  box-sizing: border-box;
+}
+
+/* 入力に集中させるため、読み物ページより狭くする */
+.tweets-form-page .page-inner {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------
+   ページ見出し
+   --------------------------------------------------------- */
+
+.tweets-form-page .page-head {
+  margin-bottom: 22px;
+}
+
+.tweets-form-page .back-link {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.tweets-form-page .back-link:hover {
+  color: var(--accent-dark);
+}
+
+.tweets-form-page .page-title {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: clamp(20px, 3.8vw, 28px);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.tweets-form-page .page-subtitle {
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+/* ---------------------------------------------------------
+   エラー表示
+   --------------------------------------------------------- */
+
+.tweets-form-page .form-errors {
+  margin-bottom: 20px;
+  padding: 16px 18px;
+  border: 1px solid var(--accent);
+  border-left: 3px solid var(--accent-strong);
+  border-radius: 14px;
+  background-color: var(--accent-soft);
+}
+
+.tweets-form-page .form-errors-title {
+  margin: 0 0 8px;
+  color: var(--accent-text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.tweets-form-page .form-errors-list {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--accent-text);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.tweets-form-page .form-errors-list li {
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   セクション
+   --------------------------------------------------------- */
+
+.tweets-form-page .form-section {
+  margin-bottom: 16px;
+  padding: 20px 22px 6px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background-color: var(--surface);
+}
+
+.tweets-form-page .section-title {
+  margin: 0 0 18px;
+  padding-left: 11px;
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* ---------------------------------------------------------
+   入力欄
+   --------------------------------------------------------- */
+
+.tweets-form-page .field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 18px;
+}
+
+.tweets-form-page .field {
+  min-width: 0;
+  margin-bottom: 18px;
+}
+
+.tweets-form-page .field-narrow {
+  max-width: 280px;
+}
+
+.tweets-form-page .field-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+
+/* size 属性より CSS を優先させ、はみ出しを防ぐ */
+.tweets-form-page .field-input,
+.tweets-form-page .field-select,
+.tweets-form-page .field-textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.tweets-form-page .field-input::placeholder,
+.tweets-form-page .field-textarea::placeholder {
+  color: var(--text-faint);
+}
+
+.tweets-form-page .field-input:focus,
+.tweets-form-page .field-select:focus,
+.tweets-form-page .field-textarea:focus {
+  outline: none;
+  border-color: var(--accent-strong);
+  background-color: var(--surface);
+}
+
+.tweets-form-page .field-input:hover,
+.tweets-form-page .field-select:hover,
+.tweets-form-page .field-textarea:hover {
+  border-color: var(--border-strong);
+}
+
+.tweets-form-page .field-textarea {
+  resize: vertical;
+  min-height: 88px;
+}
+
+/* セレクトは標準の矢印を消して自前の三角を描く */
+.tweets-form-page .field-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 38px;
+  background-image: linear-gradient(45deg, transparent 50%, #7c736f 50%),
+    linear-gradient(135deg, #7c736f 50%, transparent 50%);
+  background-position: calc(100% - 19px) calc(50% + 1px),
+    calc(100% - 14px) calc(50% + 1px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.tweets-form-page .field-hint {
+  margin: 6px 0 0;
+  color: var(--text-faint);
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   送信ボタン
+   --------------------------------------------------------- */
+
+.tweets-form-page .form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.tweets-form-page .btn {
+  display: inline-block;
+  max-width: 100%;
+  padding: 13px 32px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease, transform 0.18s ease;
+}
+
+.tweets-form-page .btn-primary {
+  background-color: var(--accent-strong);
+  color: #ffffff;
+}
+
+.tweets-form-page .btn-primary:hover {
+  background-color: var(--accent-dark);
+  transform: translateY(-2px);
+}
+
+.tweets-form-page .btn-outline {
+  border-color: var(--border-strong);
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+.tweets-form-page .btn-outline:hover {
+  border-color: var(--accent-strong);
+  color: var(--accent-dark);
+  transform: translateY(-2px);
+}
+
+.tweets-form-page .btn:focus-visible,
+.tweets-form-page .back-link:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------
+   レスポンシブ
+   --------------------------------------------------------- */
+
+@media screen and (max-width: 640px) {
+  .tweets-form-page {
+    padding: 22px 14px 56px;
+  }
+
+  .tweets-form-page .form-section {
+    padding: 18px 16px 4px;
+  }
+
+  /* 基本情報の2列を1列に */
+  .tweets-form-page .field-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .tweets-form-page .field-narrow {
+    max-width: 100%;
+  }
+
+  .tweets-form-page .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tweets-form-page .btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tweets-form-page .btn,
+  .tweets-form-page .back-link,
+  .tweets-form-page .field-input,
+  .tweets-form-page .field-select,
+  .tweets-form-page .field-textarea {
+    transition: none;
+  }
+
+  .tweets-form-page .btn:hover {
+    transform: none;
+  }
+}
+
+/* 投稿・更新日時（編集ページのみ表示） */
+.tweets-form-page .form-timestamp {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 4px 0 0;
+  padding: 0 4px;
+  color: var(--text-faint);
+  font-size: 10px;
+  line-height: 1.6;
+}

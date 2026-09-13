@@ -20,22 +20,44 @@
   </head>
 
   <body>
-    <header>
-    <h1><%= link_to "楽曲紹介サイト", root_path %></h1>
-    <div class="header-list">
-    <ul>
-      <% if user_signed_in? %>
-      <li><%= link_to "マイページ", user_path(current_user) %></li>
-      <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete %></li>
-      <% else %>
-      <li><%= link_to "新規登録", new_user_registration_path %></li>
-      <li><%= link_to "ログイン", new_user_session_path %></li>
-      <% end %>
-    </ul>
-    </div>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <h1 class="site-logo">
+          <%= link_to root_path, class: "site-logo-link" do %>
+            <span class="site-logo-mark" aria-hidden="true"></span>
+            <span class="site-logo-text">楽曲紹介サイト</span>
+          <% end %>
+        </h1>
+
+        <div class="header-list">
+          <ul class="header-nav">
+            <li><%= link_to "曲の一覧", tweets_path, class: "nav-link" %></li>
+            <% if user_signed_in? %>
+              <li><%= link_to "曲を投稿する", new_tweet_path, class: "nav-link nav-link-accent" %></li>
+              <li><%= link_to "マイページ", user_path(current_user), class: "nav-link" %></li>
+              <li><%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link nav-button", form_class: "nav-form" %></li>
+            <% else %>
+              <li><%= link_to "ログイン", new_user_session_path, class: "nav-link" %></li>
+              <li><%= link_to "新規登録", new_user_registration_path, class: "nav-link nav-link-accent" %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </header>
-  <main>
-    <%= yield %>
-  </main>
+
+    <% if notice.present? || alert.present? %>
+      <div class="flash-area">
+        <% if notice.present? %>
+          <p class="flash flash-notice"><%= notice %></p>
+        <% end %>
+        <% if alert.present? %>
+          <p class="flash flash-alert"><%= alert %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <main class="site-main">
+      <%= yield %>
+    </main>
   </body>
 </html>

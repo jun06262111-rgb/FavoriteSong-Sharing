@@ -1,28 +1,123 @@
-<%= form_for @tweet do |f| %>
-  <%= f.label :music_name %>
-  <%= f.label :music_artist %>
-  <%= f.label :music_year %>
-  <%= f.label :music_genre %>
-  <%= f.label :favorite_point %>
-  <%= f.label :review %>
-  <%= f.label :favorite_phrase %>
-  <%= f.label :favorite_time %>
-  <%= f.label :mv_url %>
-  <%= f.label :created_at %>
-  <%= f.label :updated_at %>
+<div class="tweets-form-page">
+  <div class="page-inner">
 
+    <header class="page-head">
+      <%= link_to "← 詳細に戻る", tweet_path(@tweet), class: "back-link" %>
+      <h1 class="page-title"><%= @tweet.music_name %></h1>
+      <h3 class="page-subtitle">編集ページ</h3>
+    </header>
 
-  <%= f.text_field :music_name, :size => 140 %> 
-  <%= f.text_field :music_artist, :size => 140 %> 
-  <%= f.text_field :music_year, :size => 140 %> 
-  <%= f.text_field :music_genre, :size => 140 %> 
-  <%= f.text_field :favorite_point, :size => 140 %> 
-  <%= f.text_field :review, :size => 140 %> 
-  <%= f.text_field :favorite_phrase, :size => 140 %> 
-  <%= f.text_field :favorite_time, :size => 140 %> 
-  <%= f.text_field :mv_url, :size => 140 %> 
-  <%= f.text_field :created_at, :size => 140 %> 
-  <%= f.text_field :updated_at, :size => 140 %> 
+    <%= form_for @tweet, html: { class: "tweet-form" } do |f| %>
 
-  <%= f.submit "編集する" %>
-<% end %>
+      <% if @tweet.errors.any? %>
+        <div class="form-errors">
+          <p class="form-errors-title"><%= @tweet.errors.count %>件の入力エラーがあります</p>
+          <ul class="form-errors-list">
+            <% @tweet.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <section class="form-section">
+        <h2 class="section-title">曲の基本情報</h2>
+
+        <div class="field-grid">
+          <div class="field">
+            <%= f.label :music_name, "曲のタイトル", class: "field-label" %>
+            <%= f.text_field :music_name, class: "field-input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :music_artist, "アーティストの名前", class: "field-label" %>
+            <%= f.text_field :music_artist, class: "field-input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :music_year, "発売年", class: "field-label" %>
+            <%= f.number_field :music_year, class: "field-input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :music_genre, "アーティストのジャンル", class: "field-label" %>
+            <%= f.select :music_genre,
+            [
+            ["J-pop", "J-pop"],
+            ["邦ロック", "邦ロック"],
+            ["邦楽ヒップホップ/R&B/レゲエ", "邦楽ヒップホップ/R&B/レゲエ"],
+            ["アニメ", "アニメ"],
+            ["ボカロ", "ボカロ"],
+            ["K-pop", "K-pop"],
+            ["洋楽", "洋楽"],
+            ["その他","その他"]
+            ], { include_blank: "一番近いジャンルを選択して下さい" }, { class: "field-select" } %>
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2 class="section-title">おすすめポイント</h2>
+
+        <div class="field field-narrow">
+          <%= f.label :favorite_point, "おすすめ度", class: "field-label" %>
+          <%= f.number_field :favorite_point, min: 1, max: 5, step: 0.1, class: "field-input" %>
+          <p class="field-hint">1.0 〜 5.0 の範囲で入力してください</p>
+        </div>
+
+        <div class="field">
+          <%= f.label :review, "おすすめポイント(感想・曲全体)", class: "field-label" %>
+          <%= f.text_area :review, class: "field-textarea", rows: 4 %>
+        </div>
+
+        <div class="field">
+          <%= f.label :favorite_phrase, "おすすめフレーズ", class: "field-label" %>
+          <%= f.text_area :favorite_phrase, class: "field-textarea", rows: 3 %>
+        </div>
+
+        <div class="field field-narrow">
+          <%= f.label :favorite_time, "タイムスタンプ", class: "field-label" %>
+          <%= f.text_field :favorite_time, class: "field-input" %>
+          <p class="field-hint">例：1:24 のように、特に好きな箇所の時間</p>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h2 class="section-title">リンク</h2>
+
+        <div class="field">
+          <%= f.label :youtube_url, "youtubeのurl", class: "field-label" %>
+          <%= f.text_field :youtube_url, class: "field-input" %>
+          <p class="field-hint">詳細ページでプレイヤーとして埋め込まれます</p>
+        </div>
+
+        <div class="field">
+          <%= f.label :mv_url, "MVのURL", class: "field-label" %>
+          <%= f.text_field :mv_url, class: "field-input" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :music_url, "AppleMusicの埋め込みリンク", class: "field-label" %>
+          <%= f.text_field :music_url, class: "field-input" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :apple, "AppleMusic埋め込みリンク(新)", class: "field-label" %>
+          <%= f.text_field :apple, class: "field-input" %>
+        </div>
+      </section>
+
+      <p class="form-timestamp">
+        <span>投稿 <%= @tweet.created_at %></span>
+        <span>更新 <%= @tweet.updated_at %></span>
+      </p>
+
+      <div class="form-actions">
+        <%= f.submit "更新する", class: "btn btn-primary" %>
+        <%= link_to "詳細に戻る", tweet_path(@tweet), class: "btn btn-outline" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

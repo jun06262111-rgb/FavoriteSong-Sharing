@@ -1,0 +1,433 @@
+/* =========================================================
+   マイページ（users/show）専用スタイル
+   配色：ウォームグレー（背景）＋コーラル（アクセント）の2色構成
+   レイアウト：左にプロフィール、右に投稿・いいね一覧の2カラム
+   セレクタは原則 .users-show-page から開始し、他ページに影響させない
+   ========================================================= */
+
+.users-show-page {
+  --bg: #f7f3f1;
+  --surface: #ffffff;
+  --border: #e3dcd8;
+  --border-strong: #c9bfb9;
+  --text: #231e1c;
+  --text-sub: #7c736f;
+  --text-faint: #a89f9a;
+  --accent: #ff6b4a;
+  --accent-strong: #e2502f;
+  --accent-dark: #c6432a;
+  --accent-soft: #ffe7e0;
+  --accent-text: #a8371f;
+
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 24px 20px 56px;
+  background-color: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.users-show-page *,
+.users-show-page *::before,
+.users-show-page *::after {
+  box-sizing: border-box;
+}
+
+.users-show-page .page-inner {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* ---------------------------------------------------------
+   ページ見出し
+   --------------------------------------------------------- */
+
+.users-show-page .page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.users-show-page .back-link {
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.users-show-page .back-link:hover {
+  color: var(--accent-dark);
+}
+
+.users-show-page .page-title {
+  margin: 0;
+  min-width: 0;
+  color: var(--text);
+  font-size: clamp(18px, 3vw, 24px);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   2カラム（左にプロフィール）
+   --------------------------------------------------------- */
+
+.users-show-page .page-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+  gap: 16px;
+  align-items: start;
+  width: 100%;
+}
+
+.users-show-page .col-side,
+.users-show-page .col-main {
+  min-width: 0;
+}
+
+.users-show-page .col-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* PCではプロフィールを画面に追従させる */
+@media screen and (min-width: 861px) {
+  .users-show-page .col-side {
+    position: sticky;
+    top: 20px;
+  }
+}
+
+/* ---------------------------------------------------------
+   パネル共通
+   --------------------------------------------------------- */
+
+.users-show-page .panel {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background-color: var(--surface);
+}
+
+.users-show-page .section-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 14px;
+  padding-left: 11px;
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.users-show-page .section-count {
+  padding: 1px 9px;
+  border-radius: 999px;
+  background-color: var(--accent-soft);
+  color: var(--accent-text);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* ---------------------------------------------------------
+   プロフィールカード
+   --------------------------------------------------------- */
+
+.users-show-page .profile-card {
+  border-left: 3px solid var(--accent);
+}
+
+.users-show-page .profile-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 0 12px;
+  border-radius: 999px;
+  background-color: var(--accent-soft);
+  color: var(--accent-text);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.users-show-page .profile-name {
+  margin: 0 0 16px;
+  color: var(--text);
+  font-size: 19px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+.users-show-page .profile-detail {
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.users-show-page .detail-row {
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.users-show-page .detail-row:first-child {
+  padding-top: 0;
+}
+
+.users-show-page .detail-label {
+  margin: 0 0 2px;
+  color: var(--text-sub);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.users-show-page .detail-value {
+  margin: 0;
+  min-width: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.users-show-page .detail-value:empty::before {
+  content: "未設定";
+  color: var(--text-faint);
+}
+
+.users-show-page .detail-body {
+  white-space: pre-wrap;
+}
+
+/* 投稿数・いいね数 */
+.users-show-page .profile-stats {
+  display: flex;
+  gap: 10px;
+  margin: 0;
+}
+
+.users-show-page .stat {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 10px 8px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.users-show-page .stat-num {
+  display: block;
+  color: var(--accent-dark);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.users-show-page .stat-label {
+  display: block;
+  color: var(--text-sub);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.users-show-page .profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* ---------------------------------------------------------
+   曲のリスト
+   --------------------------------------------------------- */
+
+.users-show-page .song-list {
+  margin: 0;
+  padding: 0;
+  max-height: 296px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.users-show-page .song-item {
+  padding: 11px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.users-show-page .song-item:first-child {
+  padding-top: 0;
+}
+
+.users-show-page .song-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.users-show-page .song-name {
+  display: inline-block;
+  max-width: 100%;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.18s ease;
+}
+
+.users-show-page .song-name:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.users-show-page .song-sub {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 2px 0 0;
+  color: var(--text-sub);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.users-show-page .song-artist {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.users-show-page .song-point,
+.users-show-page .song-user {
+  color: var(--text-faint);
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   ボタン
+   --------------------------------------------------------- */
+
+.users-show-page .btn {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 11px 20px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.users-show-page .btn-primary {
+  background-color: var(--accent-strong);
+  color: #ffffff;
+}
+
+.users-show-page .btn-primary:hover {
+  background-color: var(--accent-dark);
+}
+
+.users-show-page .btn-outline {
+  border-color: var(--border-strong);
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+.users-show-page .btn-outline:hover {
+  border-color: var(--accent-strong);
+  color: var(--accent-dark);
+}
+
+.users-show-page .btn:focus-visible,
+.users-show-page .back-link:focus-visible,
+.users-show-page .song-name:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------
+   0件のとき
+   --------------------------------------------------------- */
+
+.users-show-page .empty {
+  margin: 0;
+  padding: 24px 16px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 12px;
+  color: var(--text-sub);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ---------------------------------------------------------
+   レスポンシブ
+   --------------------------------------------------------- */
+
+/* タブレット・スマートフォン：1カラムに畳む */
+@media screen and (max-width: 860px) {
+  .users-show-page {
+    padding: 20px 14px 48px;
+  }
+
+  .users-show-page .page-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .users-show-page .panel {
+    padding: 16px;
+  }
+
+  /* 狭い画面では入れ子のスクロールをやめる */
+  .users-show-page .song-list {
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .users-show-page .profile-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .users-show-page .btn {
+    flex: 1 1 160px;
+    width: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .users-show-page .btn,
+  .users-show-page .back-link,
+  .users-show-page .song-name {
+    transition: none;
+  }
+}

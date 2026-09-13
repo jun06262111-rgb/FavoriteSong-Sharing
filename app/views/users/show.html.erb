@@ -1,46 +1,100 @@
-<h1><%= @user.name %>さんのページ</h1>
+<div class="users-show-page">
+  <div class="page-inner">
 
-<p>メールアドレス : <%= @user.email %></p>
-<p>プロフィール : <%= @user.profile %></p>
+    <header class="page-head">
+      <%= link_to "← 曲の一覧に戻る", tweets_path, class: "back-link" %>
+      <h1 class="page-title"><%= @user.name %>さんのページ</h1>
+    </header>
 
-<% if current_user.id == @user.id %>
-  <%= link_to "編集する", edit_user_registration_path %>
-<% end %>
+    <div class="page-columns">
 
-<h2>ユーザーの投稿一覧（<%= @user.tweets.count %>件）</h2>
+      <div class="col-side">
+        <section class="panel profile-card">
+          <p class="profile-avatar" aria-hidden="true"><%= @user.name.to_s.first %></p>
+          <p class="profile-name"><%= @user.name %></p>
 
-<% if @user.tweets.present? %>
-  <ul>
-    <% @user.tweets.order(created_at: :desc).each do |t| %>
-      <li>
-        <%= link_to t.music_name, tweet_path(t) %>
-        ／ <%= t.music_artist %>
-        ／ おすすめ度 <%= t.favorite_point %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>まだ曲を投稿していません。</p>
-<% end %>
+          <dl class="profile-detail">
+            <div class="detail-row">
+              <dt class="detail-label">メールアドレス</dt>
+              <dd class="detail-value"><%= @user.email %></dd>
+            </div>
 
-<h2>いいねした投稿一覧（<%= @user.liked_tweets.count %>件）</h2>
+            <div class="detail-row">
+              <dt class="detail-label">プロフィール</dt>
+              <dd class="detail-value detail-body"><%= @user.profile %></dd>
+            </div>
+          </dl>
 
-<% if @user.liked_tweets.present? %>
-  <ul>
-    <% @user.liked_tweets.each do |t| %>
-      <li>
-        <%= link_to t.music_name, tweet_path(t) %>
-        ／ <%= t.music_artist %>
-        ／ by <%= t.user.name %>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>まだいいねした投稿がありません。</p>
-<% end %>
+          <p class="profile-stats">
+            <span class="stat">
+              <span class="stat-num"><%= @user.tweets.count %></span>
+              <span class="stat-label">投稿</span>
+            </span>
+            <span class="stat">
+              <span class="stat-num"><%= @user.liked_tweets.count %></span>
+              <span class="stat-label">いいね</span>
+            </span>
+          </p>
 
-<% if current_user.id == @user.id %>
-  <p><%= link_to "新しく曲を投稿する", new_tweet_path %></p>
-<% end %>
+          <% if current_user&.id == @user.id %>
+            <div class="profile-actions">
+              <%= link_to "新しく曲を投稿する", new_tweet_path, class: "btn btn-primary" %>
+              <%= link_to "プロフィールを編集する", edit_user_registration_path, class: "btn btn-outline" %>
+            </div>
+          <% end %>
+        </section>
+      </div>
 
-<p><%= link_to "曲の一覧に戻る", tweets_path %></p>
+      <div class="col-main">
+
+        <section class="panel">
+          <h2 class="section-title">
+            ユーザーの投稿一覧
+            <span class="section-count"><%= @user.tweets.count %>件</span>
+          </h2>
+
+          <% if @user.tweets.present? %>
+            <ul class="song-list">
+              <% @user.tweets.order(created_at: :desc).each do |t| %>
+                <li class="song-item">
+                  <%= link_to t.music_name, tweet_path(t), class: "song-name" %>
+                  <p class="song-sub">
+                    <span class="song-artist"><%= t.music_artist %></span>
+                    <span class="song-point">おすすめ度 <%= t.favorite_point %></span>
+                  </p>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="empty">まだ曲を投稿していません。</p>
+          <% end %>
+        </section>
+
+        <section class="panel">
+          <h2 class="section-title">
+            いいねした投稿一覧
+            <span class="section-count"><%= @user.liked_tweets.count %>件</span>
+          </h2>
+
+          <% if @user.liked_tweets.present? %>
+            <ul class="song-list">
+              <% @user.liked_tweets.each do |t| %>
+                <li class="song-item">
+                  <%= link_to t.music_name, tweet_path(t), class: "song-name" %>
+                  <p class="song-sub">
+                    <span class="song-artist"><%= t.music_artist %></span>
+                    <span class="song-user">by <%= t.user.name %></span>
+                  </p>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="empty">まだいいねした投稿がありません。</p>
+          <% end %>
+        </section>
+
+      </div>
+
+    </div>
+  </div>
+</div>

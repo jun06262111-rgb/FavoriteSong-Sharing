@@ -1,0 +1,424 @@
+/* =========================================================
+   Devise（ログイン・新規登録・アカウント編集）共通スタイル
+   配色：ウォームグレー（背景）＋コーラル（アクセント）の2色構成
+   セレクタは原則 .devise-page から開始し、他ページに影響させない
+   ========================================================= */
+
+.devise-page {
+  --bg: #f7f3f1;
+  --surface: #ffffff;
+  --border: #e3dcd8;
+  --border-strong: #c9bfb9;
+  --text: #231e1c;
+  --text-sub: #7c736f;
+  --text-faint: #a89f9a;
+  --accent: #ff6b4a;
+  --accent-strong: #e2502f;
+  --accent-dark: #c6432a;
+  --accent-soft: #ffe7e0;
+  --accent-text: #a8371f;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 48px 20px 72px;
+  background-color: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.devise-page *,
+.devise-page *::before,
+.devise-page *::after {
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------------------
+   中央のカード
+   --------------------------------------------------------- */
+
+.devise-page .auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 32px 30px 28px;
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--accent);
+  border-radius: 16px;
+  background-color: var(--surface);
+}
+
+/* アカウント編集は項目が多いので広く */
+.devise-page .auth-card-wide {
+  max-width: 560px;
+}
+
+.devise-page .auth-label {
+  margin: 0 0 4px;
+  color: var(--accent-dark);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.devise-page .auth-title {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: clamp(20px, 3.6vw, 26px);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.devise-page .auth-lead {
+  margin: 0 0 24px;
+  color: var(--text-sub);
+  font-size: 13px;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   エラー表示
+   --------------------------------------------------------- */
+
+.devise-page .form-errors {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border: 1px solid var(--accent);
+  border-left: 3px solid var(--accent-strong);
+  border-radius: 12px;
+  background-color: var(--accent-soft);
+}
+
+.devise-page .form-errors-title {
+  margin: 0 0 6px;
+  color: var(--accent-text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.devise-page .form-errors-list {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--accent-text);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.devise-page .form-errors-list li {
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   セクション（アカウント編集）
+   --------------------------------------------------------- */
+
+.devise-page .form-section {
+  margin-bottom: 20px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.devise-page .form-section-current {
+  border-bottom: 0;
+}
+
+.devise-page .section-title {
+  margin: 0 0 4px;
+  padding-left: 10px;
+  border-left: 3px solid var(--accent);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.devise-page .section-lead {
+  margin: 0 0 14px;
+  padding-left: 13px;
+  color: var(--text-sub);
+  font-size: 12px;
+}
+
+.devise-page .form-section .section-title + .field {
+  margin-top: 14px;
+}
+
+/* ---------------------------------------------------------
+   入力欄
+   --------------------------------------------------------- */
+
+.devise-page .field {
+  min-width: 0;
+  margin-bottom: 18px;
+}
+
+.devise-page .field-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+}
+
+.devise-page .field-input,
+.devise-page .field-textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.7;
+  transition: border-color 0.18s ease, background-color 0.18s ease;
+}
+
+.devise-page .field-input:hover,
+.devise-page .field-textarea:hover {
+  border-color: var(--border-strong);
+}
+
+.devise-page .field-input:focus,
+.devise-page .field-textarea:focus {
+  outline: none;
+  border-color: var(--accent-strong);
+  background-color: var(--surface);
+}
+
+.devise-page .field-textarea {
+  resize: vertical;
+  min-height: 88px;
+}
+
+.devise-page .field-hint {
+  margin: 6px 0 0;
+  color: var(--text-faint);
+  font-size: 11px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.devise-page .field-notice {
+  margin: 0 0 18px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background-color: var(--accent-soft);
+  color: var(--accent-text);
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+/* チェックボックス */
+.devise-page .field-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.devise-page .field-checkbox {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--accent-strong);
+  cursor: pointer;
+}
+
+.devise-page .field-check-label {
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+/* ---------------------------------------------------------
+   ボタン
+   --------------------------------------------------------- */
+
+.devise-page .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.devise-page .btn {
+  display: block;
+  flex: 1 1 140px;
+  max-width: 100%;
+  padding: 13px 24px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.devise-page .btn-primary {
+  background-color: var(--accent-strong);
+  color: #ffffff;
+}
+
+.devise-page .btn-primary:hover {
+  background-color: var(--accent-dark);
+}
+
+.devise-page .btn-outline {
+  border-color: var(--border-strong);
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+.devise-page .btn-outline:hover {
+  border-color: var(--accent-strong);
+  color: var(--accent-dark);
+}
+
+.devise-page .btn:focus-visible,
+.devise-page .btn-danger:focus-visible,
+.devise-page .auth-link:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 3px;
+}
+
+/* ---------------------------------------------------------
+   下部のリンク
+   --------------------------------------------------------- */
+
+.devise-page .auth-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+
+.devise-page .auth-link {
+  color: var(--text-sub);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+  transition: color 0.18s ease;
+}
+
+.devise-page .auth-link:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.devise-page .auth-oauth-form {
+  margin: 0;
+}
+
+/* ---------------------------------------------------------
+   アカウント削除
+   --------------------------------------------------------- */
+
+.devise-page .danger-zone {
+  margin-top: 28px;
+  padding: 18px;
+  border: 1px dashed var(--border-strong);
+  border-radius: 14px;
+  background-color: var(--bg);
+}
+
+.devise-page .danger-title {
+  margin: 0 0 6px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.devise-page .danger-lead {
+  margin: 0 0 14px;
+  color: var(--text-sub);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.devise-page .danger-form {
+  margin: 0;
+}
+
+/* 削除は誤操作を避けるため最も目立たない見た目にする */
+.devise-page .btn-danger {
+  display: inline-block;
+  max-width: 100%;
+  padding: 9px 20px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--text-sub);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+.devise-page .btn-danger:hover {
+  border-color: var(--accent-strong);
+  background-color: var(--accent-soft);
+  color: var(--accent-text);
+}
+
+/* ---------------------------------------------------------
+   レスポンシブ
+   --------------------------------------------------------- */
+
+@media screen and (max-width: 560px) {
+  .devise-page {
+    padding: 28px 14px 56px;
+  }
+
+  .devise-page .auth-card {
+    padding: 26px 20px 24px;
+    border-radius: 14px;
+  }
+
+  .devise-page .actions {
+    flex-direction: column;
+  }
+
+  .devise-page .btn {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .devise-page .btn,
+  .devise-page .btn-danger,
+  .devise-page .auth-link,
+  .devise-page .field-input,
+  .devise-page .field-textarea {
+    transition: none;
+  }
+}

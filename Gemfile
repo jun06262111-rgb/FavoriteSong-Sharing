@@ -70,3 +70,5 @@ gem 'devise'
 group :production do
   gem 'pg'
 end
+
+gem "json", "~> 2.7"  

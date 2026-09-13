@@ -1,0 +1,293 @@
+/* =========================================================
+   共通レイアウト（固定ヘッダー・フラッシュメッセージ）
+   全ページに効くため、専用のクラス名で衝突を避ける
+   配色：ウォームグレー（背景）＋コーラル（アクセント）の2色構成
+   ========================================================= */
+
+:root {
+  --site-bg: #f7f3f1;
+  --site-surface: #ffffff;
+  --site-border: #e3dcd8;
+  --site-border-strong: #c9bfb9;
+  --site-text: #231e1c;
+  --site-text-sub: #7c736f;
+  --site-accent: #ff6b4a;
+  --site-accent-strong: #e2502f;
+  --site-accent-dark: #c6432a;
+  --site-accent-soft: #ffe7e0;
+  --site-accent-text: #a8371f;
+
+  /* ヘッダーの高さ。変えたらページ内リンクの scroll-margin-top も合わせる */
+  --site-header-h: 60px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  /* 固定ヘッダーの分だけ本文を下げる */
+  padding-top: var(--site-header-h);
+  background-color: var(--site-bg);
+  color: var(--site-text);
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans", "Yu Gothic Medium", "Yu Gothic", Meiryo, sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------------------------------------------------
+   固定ヘッダー
+   --------------------------------------------------------- */
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--site-header-h);
+  border-bottom: 1px solid var(--site-border);
+  background-color: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(8px);
+  -webkit-backdrop-filter: saturate(180%) blur(8px);
+}
+
+.site-header *,
+.site-header *::before,
+.site-header *::after {
+  box-sizing: border-box;
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  max-width: 1180px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ---------------------------------------------------------
+   サイト名
+   --------------------------------------------------------- */
+
+.site-logo {
+  margin: 0;
+  min-width: 0;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.site-logo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  max-width: 100%;
+  color: var(--site-text);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.site-logo-link:hover {
+  color: var(--site-accent-dark);
+}
+
+.site-logo-mark {
+  flex-shrink: 0;
+  width: 5px;
+  height: 20px;
+  border-radius: 3px;
+  background-color: var(--site-accent);
+}
+
+.site-logo-text {
+  min-width: 0;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+/* ---------------------------------------------------------
+   ナビゲーション
+   --------------------------------------------------------- */
+
+.header-list {
+  min-width: 0;
+}
+
+.header-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.header-nav li {
+  display: flex;
+  align-items: center;
+}
+
+/* button_to が生成する form のレイアウト崩れを防ぐ */
+.nav-form {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  display: inline-block;
+  max-width: 100%;
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--site-text-sub);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color 0.18s ease, border-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.nav-link:hover {
+  background-color: var(--site-accent-soft);
+  color: var(--site-accent-text);
+}
+
+/* 押してほしいものだけ塗る */
+.nav-link-accent {
+  background-color: var(--site-accent-strong);
+  color: #ffffff;
+}
+
+.nav-link-accent:hover {
+  background-color: var(--site-accent-dark);
+  color: #ffffff;
+}
+
+/* button_to のボタンをリンクと同じ見た目にする */
+.nav-button {
+  background-color: transparent;
+  border-color: var(--site-border);
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  border-color: var(--site-border-strong);
+}
+
+.nav-link:focus-visible,
+.site-logo-link:focus-visible {
+  outline: 2px solid var(--site-accent-strong);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------
+   フラッシュメッセージ
+   --------------------------------------------------------- */
+
+.flash-area {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 20px 0;
+}
+
+.flash {
+  box-sizing: border-box;
+  margin: 0 0 8px;
+  padding: 12px 18px;
+  border: 1px solid var(--site-border);
+  border-left: 3px solid var(--site-accent);
+  border-radius: 12px;
+  background-color: var(--site-surface);
+  color: var(--site-text);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.flash:last-child {
+  margin-bottom: 0;
+}
+
+.flash-alert {
+  border-color: var(--site-accent);
+  border-left-color: var(--site-accent-strong);
+  background-color: var(--site-accent-soft);
+  color: var(--site-accent-text);
+}
+
+/* ---------------------------------------------------------
+   本文
+   --------------------------------------------------------- */
+
+.site-main {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+/* ---------------------------------------------------------
+   レスポンシブ
+   --------------------------------------------------------- */
+
+/* スマートフォン：サイト名とメニューを2段に折り返す */
+@media screen and (max-width: 700px) {
+  :root {
+    --site-header-h: 98px;
+  }
+
+  .site-header-inner {
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding: 0 14px;
+  }
+
+  .site-logo {
+    font-size: 15px;
+  }
+
+  .header-nav {
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .nav-link {
+    padding: 7px 11px;
+    font-size: 12px;
+  }
+
+  .flash-area {
+    padding: 12px 14px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .site-logo-link {
+    transition: none;
+  }
+}
