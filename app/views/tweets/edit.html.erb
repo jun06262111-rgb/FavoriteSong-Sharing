@@ -26,22 +26,30 @@
 
         <div class="field-grid">
           <div class="field">
-            <%= f.label :music_name, "曲のタイトル", class: "field-label" %>
+            <%= f.label :music_name, class: "field-label" do %>
+              曲のタイトル<span class="badge-required">必須</span>
+            <% end %>
             <%= f.text_field :music_name, class: "field-input" %>
           </div>
 
           <div class="field">
-            <%= f.label :music_artist, "アーティストの名前", class: "field-label" %>
+            <%= f.label :music_artist, class: "field-label" do %>
+              アーティストの名前<span class="badge-required">必須</span>
+            <% end %>
             <%= f.text_field :music_artist, class: "field-input" %>
           </div>
 
           <div class="field">
-            <%= f.label :music_year, "発売年", class: "field-label" %>
+            <%= f.label :music_year, class: "field-label" do %>
+              発売年<span class="badge-required">必須</span>
+            <% end %>
             <%= f.number_field :music_year, class: "field-input" %>
           </div>
 
           <div class="field">
-            <%= f.label :music_genre, "アーティストのジャンル", class: "field-label" %>
+            <%= f.label :music_genre, class: "field-label" do %>
+              アーティストのジャンル<span class="badge-required">必須</span>
+            <% end %>
             <%= f.select :music_genre,
             [
             ["J-pop", "J-pop"],
@@ -61,23 +69,31 @@
         <h2 class="section-title">おすすめポイント</h2>
 
         <div class="field field-narrow">
-          <%= f.label :favorite_point, "おすすめ度", class: "field-label" %>
+          <%= f.label :favorite_point, class: "field-label" do %>
+            おすすめ度<span class="badge-required">必須</span>
+          <% end %>
           <%= f.number_field :favorite_point, min: 1, max: 5, step: 0.1, class: "field-input" %>
           <p class="field-hint">1.0 〜 5.0 の範囲で入力してください</p>
         </div>
 
         <div class="field">
-          <%= f.label :review, "おすすめポイント(感想・曲全体)", class: "field-label" %>
+          <%= f.label :review, class: "field-label" do %>
+            おすすめポイント(感想・曲全体)<span class="badge-required">必須</span>
+          <% end %>
           <%= f.text_area :review, class: "field-textarea", rows: 4 %>
         </div>
 
         <div class="field">
-          <%= f.label :favorite_phrase, "おすすめフレーズ", class: "field-label" %>
+          <%= f.label :favorite_phrase, class: "field-label" do %>
+            おすすめフレーズ<span class="badge-required">必須</span>
+          <% end %>
           <%= f.text_area :favorite_phrase, class: "field-textarea", rows: 3 %>
         </div>
 
         <div class="field field-narrow">
-          <%= f.label :favorite_time, "タイムスタンプ", class: "field-label" %>
+          <%= f.label :favorite_time, class: "field-label" do %>
+            タイムスタンプ<span class="badge-optional">任意</span>
+          <% end %>
           <%= f.text_field :favorite_time, class: "field-input" %>
           <p class="field-hint">特に好きな箇所の時間を入力してください</p>
         </div>
@@ -87,13 +103,17 @@
         <h2 class="section-title">リンク</h2>
 
         <div class="field">
-          <%= f.label :youtube_url, "YouTube の MV リンク", class: "field-label" %>
+          <%= f.label :youtube_url, class: "field-label" do %>
+            YouTube の MV リンク<span class="badge-required">必須</span>
+          <% end %>
           <%= f.text_field :youtube_url, class: "field-input" %>
           <p class="field-hint">詳細ページでプレイヤーとして埋め込まれます</p>
         </div>
 
         <div class="field">
-          <%= f.label :music_url, "音楽アプリのリンク", class: "field-label" %>
+          <%= f.label :music_url, class: "field-label" do %>
+            音楽アプリのリンク<span class="badge-optional">任意</span>
+          <% end %>
           <%= f.text_field :music_url, class: "field-input" %>
           <p class="field-hint">Apple Music や Spotify など、聴けるページのURL</p>
         </div>

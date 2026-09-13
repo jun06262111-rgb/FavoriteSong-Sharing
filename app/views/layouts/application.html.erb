@@ -37,7 +37,7 @@
             <li class="nav-group">
               <%= link_to "曲の一覧", tweets_path, class: "nav-link #{'is-current' if controller_name == 'tweets' && action_name == 'index'}" %>
               <% if user_signed_in? %>
-                <%= link_to "曲を投稿する", new_tweet_path, class: "nav-link nav-link-accent #{'is-current' if controller_name == 'tweets' && action_name == 'new'}" %>
+                <%= link_to "曲を投稿する", new_tweet_path, class: "nav-link #{'is-current' if controller_name == 'tweets' && action_name == 'new'}" %>
               <% end %>
             </li>
 
@@ -49,7 +49,7 @@
                 <%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class: "nav-link nav-link-quiet nav-button", form_class: "nav-form" %>
               <% else %>
                 <%= link_to "ログイン", new_user_session_path, class: "nav-link nav-link-quiet #{'is-current' if controller_name == 'sessions'}" %>
-                <%= link_to "新規登録", new_user_registration_path, class: "nav-link nav-link-accent #{'is-current' if controller_name == 'registrations' && action_name == 'new'}" %>
+                <%= link_to "新規登録", new_user_registration_path, class: "nav-link nav-link-quiet #{'is-current' if controller_name == 'registrations' && action_name == 'new'}" %>
               <% end %>
             </li>
           </ul>
